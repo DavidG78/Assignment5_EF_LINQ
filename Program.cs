@@ -27,7 +27,11 @@ namespace Assignment5
                 switch (command)
                 {
                     case Command.List:
-                        ContactManager.ListContacts();
+                        var query = ContactManager.ListContacts();
+                        foreach (var c in query)
+                        {
+                            Console.WriteLine("{0}\t{1}\t{2}\t{3}", c.ID, c.FirstName, c.LastName, c.DOB);
+                        }
                         break;
 
                     case Command.Insert:

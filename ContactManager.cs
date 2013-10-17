@@ -8,16 +8,13 @@ namespace Assignment5
 {
     class ContactManager
     {
-        public static void ListContacts()
+        public static List<Contact> ListContacts()
         {
             var ent = new contactsEntities();
             using (ent)
             {
                 var query = from c in ent.Contacts select c;
-                foreach (var c in query)
-                {
-                    Console.WriteLine("{0}\t{1}\t{2}\t{3}", c.ID, c.FirstName, c.LastName, c.DOB);
-                }
+                return query.ToList<Contact>();
             }
         }
 
@@ -93,5 +90,6 @@ namespace Assignment5
             }
 
         }
+
     }
 }
