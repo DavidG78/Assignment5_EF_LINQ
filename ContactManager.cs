@@ -25,64 +25,73 @@ namespace Assignment5
         {
             var ent = new contactsEntities();
             using (ent)
-            {
-                ent.Contacts.Add(contact);
-                CatchErrors(ent);
+            { 
+                try
+                {
+                    ent.Contacts.Add(contact);
+                    ent.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.Write(ex.ToString());
+                }
             }
 
         }
 
-        public static void UpdateContact()
+        public static void UpdateContact(Contact contact)
         {
-            Console.Write("ID: ");
-            int id = Convert.ToInt32(Console.ReadLine().Trim());
+            
 
             var ent = new contactsEntities();
             using (ent)
             {
-                Contact contact = (from c in ent.Contacts.Where
-                                (a => a.ID == id)
-                                   select c).FirstOrDefault();
+                try
+                {
+                    Contact contact2 = (from c in ent.Contacts.Where
+                                    (a => a.ID == contact.ID)
+                                       select c).FirstOrDefault();
 
-                Console.Write("First: ");
-                contact.FirstName = Console.ReadLine().Trim();
-                Console.Write("Last: ");
-                contact.LastName = Console.ReadLine().Trim();
-                Console.Write("DOB: ");
-                contact.DOB = Convert.ToDateTime(Console.ReadLine().Trim());
-                CatchErrors(ent);
+                    contact2.FirstName = contact.FirstName;
+                    contact2.LastName = contact.LastName;
+                    contact2.DOB = contact.DOB;               
+                    
+                    ent.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.Write(ex.ToString());
+                }
+
             }
         }
 
-        public static void DeleteContact()
+        public static void DeleteContact(Contact contact)
         {
-            Console.Write("ID: ");
-            int id = Convert.ToInt32(Console.ReadLine().Trim());
+            
 
             var ent = new contactsEntities();
 
             using (ent)
             {
-                Contact contact = (from c in ent.Contacts.Where
-                                   (a => a.ID == id)
+                Contact contact2 = (from c in ent.Contacts.Where
+                                   (a => a.ID == contact.ID)
                                    select c).FirstOrDefault();
-                ent.Contacts.Remove(contact);
-                CatchErrors(ent);
+                
+                try
+                {
+                    ent.Contacts.Remove(contact2);
+                    ent.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    Console.Write(ex.ToString());
+                }
             }
 
-        }
-
-        private static void CatchErrors(contactsEntities ent)
-        {
-            try
-            {
-                ent.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-
-                Console.Write(ex.ToString());
-            }
         }
     }
 }

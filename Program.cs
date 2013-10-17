@@ -42,11 +42,23 @@ namespace Assignment5
                         break;
 
                     case Command.Update:
-                        ContactManager.UpdateContact();
+                        var contact2 = new Contact();
+                        Console.Write("ID: ");
+                        contact2.ID = Convert.ToInt32(Console.ReadLine().Trim());
+                        Console.Write("First: ");
+                        contact2.FirstName = Console.ReadLine().Trim();
+                        Console.Write("Last: ");
+                        contact2.LastName = Console.ReadLine().Trim();
+                        Console.Write("DOB: ");
+                        contact2.DOB = Convert.ToDateTime(Console.ReadLine().Trim());
+                        ContactManager.UpdateContact(contact2);
                         break;
 
                     case Command.Delete:
-                        ContactManager.DeleteContact();
+                        var contact3 = new Contact();
+                        Console.Write("ID: ");
+                        contact3.ID = Convert.ToInt32(Console.ReadLine().Trim());
+                        ContactManager.DeleteContact(contact3);
                         break;
                 }
 
